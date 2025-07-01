@@ -38,6 +38,19 @@ app.get('/all/:id', (req, res) => {
     }
 })
 
+//add a new book 
+app.post('/add', (req, res) => {
+    const newBook = {
+        id: `${books.length + 1}`, 
+        title: `Book ${books.length + 1}`
+    }
+    books.push(newBook); 
+    res.status(200).json({
+        data: newBook, 
+        message: 'New book added successfully'
+    });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
