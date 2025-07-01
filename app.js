@@ -26,6 +26,18 @@ app.get('/all', (req, res) => {
     res.json(books);
 });
 
+//get a single book based on id 
+app.get('/all/:id', (req, res) => {
+    const bookId = req.params.id; 
+    const singleBook = books.find((book) => book.id == bookId); 
+    if(singleBook) {
+        res.status(200).send(singleBook);
+    }
+    else {
+        res.status(404).send("Book not found");
+    }
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
