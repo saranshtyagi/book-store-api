@@ -51,6 +51,25 @@ app.post('/add', (req, res) => {
     });
 });
 
+//update a book 
+app.put('/update/:id', (req, res) => {
+    const bookId = req.params.id; 
+    const findCurrentBook = books.find((bookItem) => bookItem.id === bookId); 
+    if(findCurrentBook) {
+        findCurrentBook.title = req.body.title || findCurrentBook.title; 
+
+        res.status(200).json({
+            message: `Book with ID ${bookId} updated successfully`,
+            data: findCurrentBook
+        });
+    }
+    else {
+        res.status(404).json({
+            message: "Book not found"
+        });
+    }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
