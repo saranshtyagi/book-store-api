@@ -29,7 +29,7 @@ app.get('/all', (req, res) => {
 //get a single book based on id 
 app.get('/all/:id', (req, res) => {
     const bookId = req.params.id; 
-    const singleBook = books.find((book) => book.id == bookId); 
+    const singleBook = books.find((book) => book.id === bookId); 
     if(singleBook) {
         res.status(200).send(singleBook);
     }
@@ -66,6 +66,24 @@ app.put('/update/:id', (req, res) => {
     else {
         res.status(404).json({
             message: "Book not found"
+        });
+    }
+});
+
+//delete a book 
+app.delete('/delete/:id', (req, res) => {
+    const bookId = req.params.id; 
+    const findIndexOfCurrentBook = books.findIndex((bookItem) => bookItem.id === bookId);
+    if(findIndexOfCurrentBook != -1) {
+        const deletedBook = books.splice(findIndexOfCurrentBook, 1); 
+        res.status(200).json({
+            message: "Book deleted successfully", 
+            data: deletedBook[0]
+        });
+    }
+    else {
+        res.status(404).json({
+            message: 'Book not found'
         });
     }
 });
